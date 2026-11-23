@@ -13,7 +13,10 @@ return new class extends Migration
     {
         Schema::create('media_user', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('media_id')->constrained('media')->cascadeOnDelete();
+            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
             $table->timestamps();
+            $table->unique(['media_id', 'user_id']);
         });
     }
 

@@ -1,0 +1,383 @@
+{
+  "info": {
+    "name": "FlipPlay - Modul 4 REST API",
+    "description": "Menampilkan daftar semua media dan detail satu media beserta pengguna yang memasukkannya ke koleksi.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://127.0.0.1:8000"
+    },
+    {
+      "key": "mediaId",
+      "value": "1"
+    },
+    {
+      "key": "userId",
+      "value": "1"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Media",
+      "item": [
+        {
+          "name": "GET - Semua Media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/media",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media"]
+            }
+          }
+        },
+        {
+          "name": "GET - Filter Berdasarkan Judul",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/media?title=One",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media"],
+              "query": [
+                {
+                  "key": "title",
+                  "value": "One"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "name": "GET - Detail Media",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST - Tambah Media",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Jujutsu Kaisen\",\n  \"type\": \"Anime\",\n  \"genre\": \"Action\",\n  \"release_year\": 2018,\n  \"episodes\": 47\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media"]
+            }
+          }
+        },
+        {
+          "name": "POST - Judul Kosong (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"\",\n  \"type\": \"Anime\",\n  \"genre\": \"Action\",\n  \"release_year\": 2024,\n  \"episodes\": 12\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media"]
+            }
+          }
+        },
+        {
+          "name": "POST - Judul Duplikat (422)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"One Piece\",\n  \"type\": \"Anime\",\n  \"genre\": \"Action\",\n  \"release_year\": 1999,\n  \"episodes\": 1155\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media"]
+            }
+          }
+        },
+        {
+          "name": "PATCH - Update Media",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"genre\": \"Adventure\",\n  \"release_year\": 1999,\n  \"episodes\": 1200\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Hapus Media",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}"]
+            }
+          }
+        },
+        {
+          "name": "GET - Media Tidak Ada (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/999999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "999999"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Media Tidak Ada (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/999999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "999999"]
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Koleksi User",
+      "item": [
+        {
+          "name": "GET - Semua User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users"]
+            }
+          }
+        },
+        {
+          "name": "GET - Detail User Beserta Koleksi",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "GET - Detail User Tidak Ada (404)",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/999999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "999999"]
+            }
+          }
+        },
+        {
+          "name": "POST - Tambah Media ke Koleksi",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}", "users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "POST - Duplikat Koleksi (409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}", "users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "GET - Koleksi Media User",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}/media",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "users", "{{userId}}", "media"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Hapus Media dari Koleksi",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}/users/{{userId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}", "users", "{{userId}}"]
+            }
+          }
+        },
+        {
+          "name": "DELETE - Koleksi Tidak Ada (404)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/media/{{mediaId}}/users/999999",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "media", "{{mediaId}}", "users", "999999"]
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

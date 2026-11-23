@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('media', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->unique();
+            $table->string('type');
+            $table->string('genre');
+            $table->integer('release_year');
+            $table->integer('episodes')->nullable();
+            $table->integer('chapters')->nullable();
             $table->timestamps();
         });
     }

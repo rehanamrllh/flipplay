@@ -1,0 +1,34 @@
+<?php
+
+namespace App\Http\Requests;
+
+use Illuminate\Contracts\Validation\ValidationRule;
+use Illuminate\Foundation\Http\FormRequest;
+
+class StoreMediaRequest extends FormRequest
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     */
+    public function authorize(): bool
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array<string, ValidationRule|array<mixed>|string>
+     */
+    public function rules(): array
+    {
+        return [
+            'title' => ['required', 'string', 'max:255', 'unique:media,title'],
+            'type' => ['required', 'string', 'max:100'],
+            'genre' => ['required', 'string', 'max:100'],
+            'release_year' => ['required', 'integer', 'min:1888', 'max:2100'],
+            'episodes' => ['nullable', 'integer', 'min:1'],
+            'chapters' => ['nullable', 'integer', 'min:1'],
+        ];
+    }
+}
